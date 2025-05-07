@@ -1,2 +1,2 @@
-# leren-docs
-Documentacion interna de Leren
+# Documentacion interna de Leren
+Creada con docusaurus
