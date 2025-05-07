@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de cuenta</title>
+</head>
+<body>
+    <h2>Confirmando tu cuenta...</h2>
+    <p>Por favor, espera un momento.</p>
+    <script>
+        async function confirmUser() {
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get("confirmation_token");
+
+            if (!token) {
+                document.body.innerHTML = "<h2>Error: Token no encontrado.</h2>";
+                return;
+            }
+
+            try {
+                const response = await fetch("https://YOUR_SITE.netlify.app/.netlify/identity/verify", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ token }),
+                });
+
+                if (response.ok) {
+                    document.body.innerHTML = "<h2>Cuenta confirmada con éxito.</h2>";
+                } else {
+                    document.body.innerHTML = "<h2>Error al confirmar la cuenta.</h2>";
+                }
+            } catch (error) {
+                document.body.innerHTML = "<h2>Error en el proceso de confirmación.</h2>";
+            }
+        }
+
+        confirmUser();
+    </script>
+</body>
+</html>
